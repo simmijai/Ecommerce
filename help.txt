@@ -1,0 +1,14 @@
+cd .\venv\ 
+
+cd .\Scripts\
+
+./ACTIVATE
+
+CD..
+
+CD..
+
+cd .\myproject\
+
+
+python manage.py runserver
