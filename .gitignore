@@ -1,0 +1,16 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+
+# Django migrations cache
+*/migrations/__pycache__/
+
+# Environment files
+.env
+
+# Django stuff
+*.sqlite3
+*.log
+
+# Local settings (optional if contains secrets)
+ecommerce/settings_local.py
