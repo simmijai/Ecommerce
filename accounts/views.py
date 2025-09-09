@@ -15,7 +15,7 @@ def login_view(request):
             
             # Role-based redirection
             if user.role in ["admin", "staff"]:
-                return redirect("dashboard:home")  # admin & staff → dashboard
+                return redirect("dashboard:index")  # admin & staff → dashboard
             # elif user.role == "customer":
             #     return redirect("store:home")      # customer → store
             else:

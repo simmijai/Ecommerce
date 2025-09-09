@@ -1,6 +1,8 @@
 # Python compiled files
 __pycache__/
 *.py[cod]
+*.pyc
+
 
 # Django migrations cache
 */migrations/__pycache__/
