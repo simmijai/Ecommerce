@@ -6,3 +6,4 @@ admin.site.register(Product)
 admin.site.register(ProductImage)
 admin.site.register(ProductAttribute)
 admin.site.register(Wishlist)
+
