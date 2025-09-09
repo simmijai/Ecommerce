@@ -1,14 +1,8 @@
-from django.db import models
-from store.models import Product
-from orders.models import Order
+# from django.db import models
+# from django.conf import settings
 
-class SalesReport(models.Model):
-    date = models.DateField()
-    total_orders = models.PositiveIntegerField()
-    total_revenue = models.DecimalField(max_digits=12, decimal_places=2)
-    total_products_sold = models.PositiveIntegerField()
-
-class ProductReport(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    sold_quantity = models.PositiveIntegerField()
-    revenue_generated = models.DecimalField(max_digits=12, decimal_places=2)
+# class AdminLog(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     action = models.CharField(max_length=255)
+#     extra = models.JSONField(null=True, blank=True)  # store metadata
+#     created_at = models.DateTimeField(auto_now_add=True)
