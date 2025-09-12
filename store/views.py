@@ -143,9 +143,19 @@ def image_delete(request, pk):
 from django.shortcuts import render, get_object_or_404
 from .models import Category, SubCategory, Product
 
+from django.core.paginator import Paginator
+
 def home(request):
-    products = Product.objects.all()
+    products_list = Product.objects.all().order_by('id')  # order by id
+    paginator = Paginator(products_list, 12)  # 12 products per page
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
     return render(request, "store/home.html", {"products": products})
+
+
+# def home(request):
+#     products = Product.objects.all()
+#     return render(request, "store/home.html", {"products": products})
 
 def category_products(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
