@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+app_name = "store"
+
+
 urlpatterns = [
     path('categories/', views.category_list, name="category_list"),
     path('categories/add/', views.category_create, name="category_add"),
@@ -20,4 +23,11 @@ urlpatterns = [
     path('products/<int:pk>/edit/', views.product_update, name='product_update'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
     path('image/delete/<int:pk>/', views.image_delete, name='image_delete'),
+    
+    
+    
+    path("", views.home, name="home"),  # root URL par home page
+    path('category/<slug:category_slug>/', views.category_products, name="category_products"),
+    path('category/<slug:category_slug>/<slug:subcategory_slug>/', views.subcategory_products, name="subcategory_products"),
+
 ]

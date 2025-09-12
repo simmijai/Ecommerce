@@ -55,7 +55,7 @@ def subcategory_create(request):
         form = SubCategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('subcategory_list')
+            return redirect('store:subcategory_list')
     else:
         form = SubCategoryForm()
     return render(request, 'store/subcategory_form.html', {'form': form})
@@ -65,13 +65,17 @@ def subcategory_update(request, pk):
     form = SubCategoryForm(request.POST or None, instance=subcategory)
     if form.is_valid():
         form.save()
-        return redirect('subcategory_list')
+        return redirect('store:subcategory_list')
     return render(request, 'store/subcategory_form.html', {'form': form})
 
 def subcategory_delete(request, pk):
     subcategory = get_object_or_404(SubCategory, pk=pk)
     subcategory.delete()
-    return redirect('subcategory_list')
+    return redirect('store:subcategory_list')
+
+
+
+
 
 
 
@@ -127,3 +131,33 @@ def image_delete(request, pk):
     product_id = image.product.id
     image.delete()
     return redirect('product_update', pk=product_id)
+
+
+
+# def home(request):
+#     products = Product.objects.all()  # sab products fetch
+#     return render(request, "store/home.html", {"products": products})
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Category, SubCategory, Product
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, "store/home.html", {"products": products})
+
+def category_products(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    products = Product.objects.filter(category=category)
+    return render(request, "store/category_products.html", {"category": category, "products": products})
+
+def subcategory_products(request, category_slug, subcategory_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    subcategory = get_object_or_404(SubCategory, slug=subcategory_slug, category=category)
+    products = Product.objects.filter(subcategory=subcategory)
+    return render(request, "store/subcategory_products.html", {
+        "category": category,
+        "subcategory": subcategory,
+        "products": products
+    })

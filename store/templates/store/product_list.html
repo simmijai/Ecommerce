@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="mb-4">Products</h1>
-<a href="{% url 'product_create' %}" class="btn btn-success mb-3">+ Add Product</a>
+<a href="{% url 'store:product_create' %}" class="btn btn-success mb-3">+ Add Product</a>
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
@@ -35,8 +35,8 @@
                 {% empty %}No Image{% endfor %}
             </td>
             <td>
-                <a href="{% url 'product_update' product.id %}" class="btn btn-primary btn-sm">Edit</a>
-                <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                <a href="{% url 'store:product_update' product.id %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'store:product_delete' product.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
             </td>
         </tr>
         {% empty %}

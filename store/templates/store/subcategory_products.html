@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ subcategory.name }} - Products{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">{{ subcategory.name }} Products</h2>
+
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <!-- Product Image -->
+                        {% if product.images.first %}
+                            <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No Image">
+                        {% endif %}
+
+                        <!-- Product Info -->
+                        <div class="card-body text-center">
+                            <h6 class="card-title">
+                                <a href="{% url 'store:product_detail' product.slug %}" class="text-dark text-decoration-none">
+                                    {{ product.name }}
+                                </a>
+                            </h6>
+                            <p class="text-primary fw-bold">₹{{ product.price }}</p>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="card-footer text-center">
+                            <a href="{% url 'store:product_detail' product.slug %}" class="btn btn-outline-primary btn-sm">View</a>
+                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products available in this subcategory.</p>
+    {% endif %}
+</div>
+{% endblock %}

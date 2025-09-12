@@ -25,7 +25,7 @@
 
         <div class="mt-3">
             <button type="submit" class="btn btn-success">{% if category %}Update{% else %}Add{% endif %} Category</button>
-            <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'store:category_list' %}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>

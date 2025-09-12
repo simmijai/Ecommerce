@@ -24,7 +24,9 @@ urlpatterns = [
    path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('store/', include('store.urls')),  # <-- add this
+    # path('store/', include('store.urls')),  # <-- add this
+path("", include("store.urls", namespace="store")),  # customer site root
+
 ]
 
 if settings.DEBUG:

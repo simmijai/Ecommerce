@@ -22,10 +22,10 @@
   <div class="sidebar d-flex flex-column">
     <h4>Admin Panel</h4>
     <nav class="nav flex-column">
-      <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">Dashboard</a>
-      <a href="{% url 'product_list' %}" class="nav-link {% if 'product' in request.path %}active{% endif %}">Products</a>
-      <a href="{% url 'category_list' %}" class="nav-link {% if 'category' in request.path %}active{% endif %}">Categories</a>
-      <a href="{% url 'subcategory_list' %}" class="nav-link {% if 'subcategory' in request.path %}active{% endif %}">Subcategories</a>
+      <a href="{% url 'dashboard:index' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">Dashboard</a>
+      <a href="{% url 'store:product_list' %}" class="nav-link {% if 'product' in request.path %}active{% endif %}">Products</a>
+      <a href="{% url 'store:category_list' %}" class="nav-link {% if 'category' in request.path %}active{% endif %}">Categories</a>
+      <a href="{% url 'store:subcategory_list' %}" class="nav-link {% if 'subcategory' in request.path %}active{% endif %}">Subcategories</a>
       <a href="#" class="nav-link">Orders</a>
       <a href="#" class="nav-link">Settings</a>
       <a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a>
