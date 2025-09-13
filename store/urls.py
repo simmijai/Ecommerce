@@ -29,5 +29,10 @@ urlpatterns = [
     path("", views.home, name="home"),  # root URL par home page
     path('category/<slug:category_slug>/', views.category_products, name="category_products"),
     path('category/<slug:category_slug>/<slug:subcategory_slug>/', views.subcategory_products, name="subcategory_products"),
+    
+    
+    
+    path('product/<slug:product_slug>/', views.product_detail, name='product_detail'),
+
 
 ]

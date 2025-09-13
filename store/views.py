@@ -171,3 +171,17 @@ def subcategory_products(request, category_slug, subcategory_slug):
         "subcategory": subcategory,
         "products": products
     })
+
+
+
+from .models import Product, ProductImage
+
+def product_detail(request, product_slug):
+    product = get_object_or_404(Product, slug=product_slug)
+    images = ProductImage.objects.filter(product=product)
+
+    context = {
+        "product": product,
+        "images": images,
+    }
+    return render(request, "store/product_detail.html", context)
