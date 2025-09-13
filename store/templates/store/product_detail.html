@@ -38,14 +38,14 @@
             <h4 class="text-primary">₹{{ product.price }}</h4>
             <p>{{ product.description|default:"No description available." }}</p>
 
-            {% comment %} <form method="post" action="{% url 'store:add_to_cart' product.id %}">
-                {% csrf_token %} {% endcomment %}
+            <form method="post" action="{% url 'store:add_to_cart' product.id %}">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label>Quantity</label>
                     <input type="number" name="quantity" value="1" min="1" class="form-control w-25">
                 </div>
                 <button type="submit" class="btn btn-success">Add to Cart</button>
-            {% comment %} </form> {% endcomment %}
+            </form>
         </div>
     </div>
 </div>

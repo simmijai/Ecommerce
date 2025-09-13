@@ -185,3 +185,107 @@ def product_detail(request, product_slug):
         "images": images,
     }
     return render(request, "store/product_detail.html", context)
+
+
+
+
+
+
+from decimal import Decimal
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Product, ProductImage
+from django.views.decorators.http import require_POST
+
+# ---- helpers ----
+def _get_cart(request):
+    return request.session.get("cart", {})
+
+def _save_cart(request, cart):
+    request.session["cart"] = cart
+    request.session.modified = True
+
+# ---- add to cart ----
+@require_POST
+def add_to_cart(request, product_id):
+    quantity = int(request.POST.get("quantity", 1))
+    product = get_object_or_404(Product, id=product_id)
+
+    cart = _get_cart(request)
+    pid = str(product_id)
+
+    if pid in cart:
+        cart[pid]["quantity"] = cart[pid].get("quantity", 0) + quantity
+    else:
+        cart[pid] = {
+            "name": product.name,
+            "price": str(product.price),   # store as string to avoid JSON/Decimal issues
+            "quantity": quantity,
+            "image": product.images.first().image.url if product.images.exists() else None,
+        }
+
+    _save_cart(request, cart)
+    return redirect("store:cart_detail")
+
+
+# ---- cart detail ----
+def cart_detail(request):
+    cart = _get_cart(request)
+    items = []
+    total = Decimal("0.00")
+
+    for pid, item in cart.items():
+        price = Decimal(item["price"])
+        qty = int(item["quantity"])
+        subtotal = price * qty
+        total += subtotal
+
+        # try fresh product (optional)
+        try:
+            product = Product.objects.get(id=int(pid))
+        except Product.DoesNotExist:
+            product = None
+
+        items.append({
+            "product": product,
+            "product_id": pid,
+            "name": item["name"],
+            "price": price,
+            "quantity": qty,
+            "image": item.get("image"),
+            "subtotal": subtotal,
+        })
+
+    return render(request, "store/cart.html", {"items": items, "total": total})
+
+
+# ---- update quantity (POST) ----
+@require_POST
+def update_cart(request, product_id):
+    quantity = int(request.POST.get("quantity", 1))
+    cart = _get_cart(request)
+    pid = str(product_id)
+    if pid in cart:
+        if quantity > 0:
+            cart[pid]["quantity"] = quantity
+        else:
+            del cart[pid]
+        _save_cart(request, cart)
+    return redirect("store:cart_detail")
+
+
+# ---- remove item ----
+@require_POST
+def remove_from_cart(request, product_id):
+    cart = _get_cart(request)
+    pid = str(product_id)
+    if pid in cart:
+        del cart[pid]
+        _save_cart(request, cart)
+    return redirect("store:cart_detail")
+
+
+# ---- simple checkout placeholder ----
+def checkout(request):
+    # Replace with real checkout later
+    return render(request, "store/checkout.html")
+

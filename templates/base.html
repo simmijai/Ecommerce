@@ -42,7 +42,8 @@
     <span><i class="fas fa-phone"></i> +91 12345 67890</span>
     <a href="#"><i class="fas fa-user"></i> Login</a>
     <a href="#"><i class="fas fa-heart"></i> Wishlist</a>
-    <a href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="{% url 'store:cart_detail' %}"><i class="fas fa-shopping-cart"></i> Cart ({{ cart_item_count }})</a>
+
 </div>
 
 <!-- Navbar -->
